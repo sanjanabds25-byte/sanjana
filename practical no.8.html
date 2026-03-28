@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css"href="practical no.8.css">
+<meta charset="UTF-8">
+<title>Image Gallery</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.item:hover img {
+    transform: scale(1.1);
+    filter: brightness(75%);
+}
+
+.item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.item:hover::after {
+    opacity: 1;
+}
+
+.caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 30px);
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+.item:hover .caption {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 15px;
+    animation: zoomIn 0.4s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+    <marquee>Made By Sanjana Budhe</marquee>
+
+<h1>Image Gallery</h1>
+
+<div class="gallery">
+    <div class="item">
+        <img src="https://picsum.photos/id/1015/400/300">
+        <span class="caption">Nature</span>
+    </div>
+
+    <div class="item">
+        <img src="https://picsum.photos/id/1025/400/300">
+        <span class="caption">Dog</span>
+    </div>
+
+    <div class="item">
+        <img src="https://picsum.photos/id/1035/400/300">
+        <span class="caption">Mountains</span>
+    </div>
+
+    <div class="item">
+        <img src="https://picsum.photos/id/1045/400/300">
+        <span class="caption">Beach</span>
+    </div>
+
+    <div class="item">
+        <img src="https://picsum.photos/id/1055/400/300">
+        <span class="caption">Forest</span>
+    </div>
+
+    <div class="item">
+        <img src="https://picsum.photos/id/1065/400/300">
+        <span class="caption">River</span>
+    </div>
+</div>
+
+<div class="modal" id="modal">
+    <span class="close" onclick="closeModal()">×</span>
+    <img id="modalImg">
+</div>
+
+<script>
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
+const images = document.querySelectorAll(".item img");
+
+images.forEach(img => {
+    img.addEventListener("click", () => {
+        modal.classList.add("active");
+        modalImg.src = img.src;
+    });
+});
+
+function closeModal() {
+    modal.classList.remove("active");
+}
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        closeModal();
+    }
+});
+</script>
+
+</body>
+</html>
