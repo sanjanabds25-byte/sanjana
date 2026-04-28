@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 APIs Demo</title>
+<style>
+body{
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(to right, lightblue, blue);
+margin: 0;
+padding: 20px;
+text-align: center;
+}
+h1{
+margin-bottom: 30px;
+}
+section {
+background: white;
+padding: 20px;
+margin: 20px auto;
+width: 80%;
+border-radius: 12px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+#dragBox, #dropBox {
+width: 150px;
+height: 150px;
+border-radius: 10px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+margin: 10px;
+font-weight: bold;
+transition: 0.3s;
+}
+#dragBox {
+background:yellow;
+color: white;
+cursor: grab;
+}
+#dragBox:hover {
+transform: scale(1.1);
+}
+#dropBox {
+border: 2px dashed #333;
+background: lightyellow;
+}
+#dropBox.hovered {
+background: #c8f7c5;
+border-color: green;
+}
+button{
+padding: 10px 15px;
+border: none;
+border-radius: 6px;
+margin: 5px;
+cursor: pointer;
+font-size: 15px;
+}
+.btn-blue { background: purple; color: white; }
+.btn-green { background: pink; color: white; }
+.btn-yellow { background: lightpink; }
+.btn-red { background: lightblue; color: white; }
+input {
+padding: 10px;
+width: 200px;
+border-radius: 5px;
+border: 1px solid #ccc;
+}
+p{
+margin-top: 10px;
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>....HTML5 APIs Demo....</h1>
+<section>
+<h2>Drag & Drop API</h2>
+<div id="dragBox" draggable="true">Drag me</div>
+<div id="dropBox">Drop here</div>
+</section>
+<section>
+<h2>Geolocation API</h2>
+<button class="btn-blue" onclick="getLocation()">Get My Location</button>
+<p id="locationOutput">Click to fetch location</p>
+</section>
+<section>
+<h2>Web Storage API</h2>
+<input type="text" id="nameInput" placeholder="Enter your name"><br>
+<button class="btn-green" onclick="saveName()">Save</button>
+<button class="btn-yellow" onclick="loadName()">Load</button>
+<button class="btn-red" onclick="clearData()">Reset</button>
+<p id="storageOutput"></p>
+</section>
+<script>
+const dragBox = document.getElementById("dragBox");
+const dropBox = document.getElementById("dropBox");
+dragBox.addEventListener("dragstart", (e) => {
+e.dataTransfer.setData("text", e.target.id);
+});
+dropBox.addEventListener("dragover", (e) => {
+e.preventDefault();
+dropBox.classList.add("hovered");
+});
+dropBox.addEventListener("dragleave", () => {
+dropBox.classList.remove("hovered");
+});
+dropBox.addEventListener("drop", (e) => {
+e.preventDefault();
+const data = e.dataTransfer.getData("text");
+const element = document.getElementById(data);
+dropBox.appendChild(element);
+dropBox.classList.remove("hovered");
+element.innerHTML = "Dropped!";
+});
+function getLocation() {
+const output = document.getElementById("locationOutput");
+if (navigator.geolocation) {
+output.innerHTML = "Fetching location";
+navigator.geolocation.getCurrentPosition(
+(pos) => {
+output.innerHTML = 
+Latitude: ${pos.coords.latitude} <br>
+Longitude: ${pos.coords.longitude}`;
+},
+() => {
+output.innerHTML = "Permission denied!";
+}
+);
+} else {
+output.innerHTML = "Not supported";
+}
+}
+function saveName() {
+const name = document.getElementById("nameInput").value;
+localStorage.setItem("username", name);
+alert("Name saved!");
+}
+function loadName() {
+const name = localStorage.getItem("username");
+document.getElementById("storageOutput").innerHTML =
+name ?Welcome back, <b>${name}</b>!` : "No data found!";
+}
+function clearData() {
+localStorage.clear();
+document.getElementById("storageOutput").innerHTML = "Data cleared!";
+}
+</script>
+</body>
+</html>
