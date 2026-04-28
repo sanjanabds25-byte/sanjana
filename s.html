@@ -1,0 +1,137 @@
+<html>
+<head>
+  <title>Bootstrap Practical-12</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    .card:hover {
+      transform: scale(1.05);
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      transition: 0.2s;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fa-solid fa-code"></i> My Website</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-star"></i> Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-tags"></i> Pricing</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-aos="fade-up">
+  <div class="carousel-inner">
+
+    <div class="carousel-item active">
+      <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot1.png">
+    </div>
+
+    <div class="carousel-item">
+      <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot2.png">
+    </div>
+
+    <div class="carousel-item">
+      <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot3.png">
+    </div>
+
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row g-4">
+
+    <div class="col-md-4" data-aos="zoom-in">
+      <div class="card text-center">
+        <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot4.png">
+        <div class="card-body">
+          <h5><i class="fa-solid fa-user"></i> Card 1</h5>
+          <p>Some quick example text.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+      <div class="card text-center">
+        <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot5.png">
+        <div class="card-body">
+          <h5><i class="fa-solid fa-laptop"></i> Card 2</h5>
+          <p>Some quick example text.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+      <div class="card text-center">
+        <img src="C:\Users\toshika\OneDrive\Pictures\Screenshots\boot6.png">
+        <div class="card-body">
+          <h5><i class="fa-solid fa-gear"></i> Card 3</h5>
+          <p>Some quick example text.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container text-center mb-5" data-aos="fade-up">
+  <button class="btn btn-outline-primary m-1"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+  <button class="btn btn-outline-success m-1"><i class="fa-solid fa-check"></i> Success</button>
+  <button class="btn btn-outline-danger m-1"><i class="fa-solid fa-trash"></i> Delete</button>
+  <button class="btn btn-outline-warning m-1"><i class="fa-solid fa-bell"></i> Alert</button>
+</div>
+
+<div class="container mb-5 text-center">
+
+  <div class="row">
+    <div class="col-md-6 bg-light p-3" data-aos="fade-right">1 of 2</div>
+    <div class="col-md-6 bg-secondary text-white p-3" data-aos="fade-left">2 of 2</div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col bg-info p-3" data-aos="flip-left">1 of 3</div>
+    <div class="col bg-warning p-3" data-aos="flip-up">2 of 3</div>
+    <div class="col bg-success text-white p-3" data-aos="flip-right">3 of 3</div>
+  </div>
+
+</div>
+
+<footer class="bg-dark text-white text-center p-4" data-aos="fade-up">
+  <p><i class="fa-solid fa-copyright"></i> my wesite bootstrap</p>
+  <p>
+    <i class="fa-brands fa-facebook"></i>
+    <i class="fa-brands fa-instagram mx-2"></i>
+    <i class="fa-brands fa-twitter"></i>
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  AOS.init();
+</script>
+
+</body>
+</html>
