@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brew & Bean Cafe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #d7ccc8, #efebe9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 360px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #5d4037;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .addons {
+            margin-top: 10px;
+        }
+
+        .addons input {
+            margin-right: 5px;
+        }
+
+        .summary {
+            margin-top: 15px;
+            padding: 10px;
+            background: #efebe9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .total-box {
+            margin-top: 10px;
+            padding: 10px;
+            background: #d7ccc8;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #4e342e;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: #6d4c41;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #4e342e;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Brew & Bean ☕</h2>
+
+    <form>
+        <label>Select Coffee:</label>
+        <select id="coffee" onchange="updateOrder()">
+            <option value="100">Espresso - ₹100</option>
+            <option value="120">Cappuccino - ₹120</option>
+            <option value="150">Latte - ₹150</option>
+        </select>
+
+        <label>Quantity:</label>
+        <input type="number" id="qty" value="1" min="1" onchange="updateOrder()">
+
+        <label>Add-ons:</label>
+        <div class="addons">
+            <input type="checkbox" value="20" onchange="updateOrder()"> Extra Shot (₹20)<br>
+            <input type="checkbox" value="30" onchange="updateOrder()"> Whipped Cream (₹30)<br>
+            <input type="checkbox" value="25" onchange="updateOrder()"> Chocolate Syrup (₹25)
+        </div>
+
+        <div class="summary" id="summary">
+            Order Summary will appear here...
+        </div>
+
+        <div class="total-box">
+            Total Price: ₹ <span id="total">100</span>
+        </div>
+
+        <button type="button" onclick="placeOrder()">Place Order</button>
+    </form>
+</div>
+
+<script>
+function updateOrder() {
+    let coffeeSelect = document.getElementById("coffee");
+    let coffeeName = coffeeSelect.options[coffeeSelect.selectedIndex].text;
+    let coffeePrice = parseInt(coffeeSelect.value);
+
+    let qty = parseInt(document.getElementById("qty").value);
+
+    let addOns = document.querySelectorAll(".addons input:checked");
+    let addOnList = [];
+    let addOnTotal = 0;
+
+    addOns.forEach(function(item) {
+        addOnList.push(item.parentNode.textContent.trim());
+        addOnTotal += parseInt(item.value);
+    });
+
+    let total = (coffeePrice * qty) + addOnTotal;
+
+    // Update summary
+    document.getElementById("summary").innerHTML =
+        "Coffee: " + coffeeName + "<br>" +
+        "Quantity: " + qty + "<br>" +
+        "Add-ons: " + (addOnList.length ? addOnList.join(", ") : "None");
+
+    // Update total
+    document.getElementById("total").innerText = total;
+}
+
+function placeOrder() {
+    alert("Order placed successfully! ☕");
+}
+</script>
+
+</body>
+</html>
