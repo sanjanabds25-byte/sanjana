@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brew & Bean Cafe</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f3ef;
+}
+
+/* Header */
+header {
+  background: #5c3d2e;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Navigation */
+nav {
+  background: #e0c097;
+  text-align: center;
+  padding: 10px;
+}
+
+nav a {
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+/* Layout */
+main {
+  display: flex;
+  padding: 20px;
+}
+
+section {
+  flex: 2;
+}
+
+aside {
+  flex: 1;
+  margin-left: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 10px;
+}
+
+/* Inputs */
+select, input {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+/* Button */
+button {
+  background: #5c3d2e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #3e2723;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #5c3d2e;
+  color: white;
+  padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Brew & Bean Cafe ☕</h1>
+  <p>Order your favorite coffee online</p>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">Order</a>
+</nav>
+
+<main>
+
+<section>
+  <h2>Build Your Coffee</h2>
+
+  <label><b>Coffee Type:</b></label><br>
+  <select id="coffee">
+    <option value="5">Espresso ($5)</option>
+    <option value="6">Latte ($6)</option>
+    <option value="7">Cappuccino ($7)</option>
+  </select>
+
+  <h3>Add-ons:</h3>
+  <label><input type="checkbox" value="1" class="addon"> Milk ($1)</label><br>
+  <label><input type="checkbox" value="1" class="addon"> Sugar ($1)</label><br>
+  <label><input type="checkbox" value="2" class="addon"> Flavor ($2)</label>
+
+  <h3>Quantity:</h3>
+  <input type="number" id="quantity" value="1" min="1">
+
+  <br><br>
+  <button onclick="calculateTotal()">Place Order</button>
+</section>
+
+<aside>
+  <h2>Order Summary</h2>
+  <p id="summary">No order yet</p>
+  <h3 id="total">Total: $0</h3>
+</aside>
+
+</main>
+
+<footer>
+  <p>© 2026 Brew & Bean Cafe</p>
+</footer>
+
+<script>
+function calculateTotal() {
+  let coffee = document.getElementById("coffee");
+  let coffeePrice = parseFloat(coffee.value);
+  let coffeeName = coffee.options[coffee.selectedIndex].text;
+
+  let addons = document.querySelectorAll(".addon:checked");
+  let addonTotal = 0;
+  let addonNames = [];
+
+  addons.forEach(addon => {
+    addonTotal += parseFloat(addon.value);
+    addonNames.push(addon.parentElement.textContent.trim());
+  });
+
+  let quantity = parseInt(document.getElementById("quantity").value);
+
+  let total = (coffeePrice + addonTotal) * quantity;
+
+  document.getElementById("summary").innerHTML =
+    "<b>Coffee:</b> " + coffeeName + "<br>" +
+    "<b>Add-ons:</b> " + (addonNames.length ? addonNames.join(", ") : "None") + "<br>" +
+    "<b>Quantity:</b> " + quantity;
+
+  document.getElementById("total").innerText = "Total: $" + total;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
