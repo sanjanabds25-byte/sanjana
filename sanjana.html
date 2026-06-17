@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PowerFit Gym</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+    }
+
+    .hero{
+        background: linear-gradient(rgba(0,0,0,0.7),
+        rgba(0,0,0,0.7)),
+        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        color: white;
+        display:flex;
+        align-items:center;
+    }
+
+    .hero h1{
+        font-size: 4rem;
+        font-weight: bold;
+    }
+
+    .section-title{
+        text-align:center;
+        margin-bottom:40px;
+        font-weight:bold;
+        color:#dc3545;
+    }
+
+    .card:hover{
+        transform:translateY(-8px);
+        transition:0.4s;
+    }
+
+    .trainer-img{
+        height:250px;
+        object-fit:cover;
+    }
+
+    .plan-card{
+        border:none;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .premium{
+        background:#dc3545;
+        color:white;
+    }
+
+    footer{
+        background:#111;
+        color:white;
+    }
+
+    .icon-box{
+        font-size:45px;
+        color:#dc3545;
+        margin-bottom:15px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<div class="container">
+    <a class="navbar-brand fw-bold text-danger" href="#">
+        <i class="fa-solid fa-dumbbell"></i> PowerFit Gym
+    </a>
+
+    <button class="navbar-toggler" type="button"
+    data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="#trainers">Trainers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#plans">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="#inquiry">Inquiry</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+<div class="container text-center">
+    <h1>Transform Your Body</h1>
+    <p class="lead">Train Hard. Stay Fit. Live Strong.</p>
+    <a href="#plans" class="btn btn-danger btn-lg mt-3">
+        Join Now
+    </a>
+</div>
+</section>
+
+<!-- Features -->
+<section class="py-5">
+<div class="container">
+    <div class="row text-center">
+
+        <div class="col-md-4">
+            <div class="icon-box">
+                <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <h4>Modern Equipment</h4>
+            <p>Latest fitness machines and free weights.</p>
+        </div>
+
+        <div class="col-md-4">
+            <div class="icon-box">
+                <i class="fa-solid fa-user-group"></i>
+            </div>
+            <h4>Expert Trainers</h4>
+            <p>Certified trainers to guide your journey.</p>
+        </div>
+
+        <div class="col-md-4">
+            <div class="icon-box">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h4>Healthy Lifestyle</h4>
+            <p>Fitness programs designed for all ages.</p>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- Programs -->
+<section class="py-5 bg-light" id="programs">
+<div class="container">
+    <h2 class="section-title">Fitness Programs</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-fire fs-1 text-danger"></i>
+                    <h4 class="mt-3">Weight Loss</h4>
+                    <p>Burn calories and achieve your ideal body shape.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-dumbbell fs-1 text-danger"></i>
+                    <h4 class="mt-3">Muscle Building</h4>
+                    <p>Strength training and customized workout plans.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fa-solid fa-person-running fs-1 text-danger"></i>
+                    <h4 class="mt-3">Cardio Fitness</h4>
+                    <p>Improve endurance and cardiovascular health.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- Trainers -->
+<section class="py-5" id="trainers">
+<div class="container">
+<h2 class="section-title">Our Trainers</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc"
+class="card-img-top trainer-img" alt="">
+<div class="card-body text-center">
+<h5>Rahul Sharma</h5>
+<p>Strength & Conditioning Coach</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438"
+class="card-img-top trainer-img" alt="">
+<div class="card-body text-center">
+<h5>Priya Mehta</h5>
+<p>Weight Loss Specialist</p>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1549476464-37392f717541"
+class="card-img-top trainer-img" alt="">
+<div class="card-body text-center">
+<h5>Arjun Patel</h5>
+<p>Personal Fitness Trainer</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Membership Plans -->
+<section class="py-5 bg-light" id="plans">
+<div class="container">
+<h2 class="section-title">Membership Plans</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card plan-card text-center">
+<div class="card-body">
+<h3>Basic</h3>
+<h2>₹999</h2>
+<p>Per Month</p>
+<ul class="list-unstyled">
+<li>Gym Access</li>
+<li>Locker Facility</li>
+<li>Fitness Assessment</li>
+</ul>
+<button class="btn btn-outline-danger">
+Choose Plan
+</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card plan-card premium text-center">
+<div class="card-body">
+<h3>Standard</h3>
+<h2>₹1999</h2>
+<p>Per Month</p>
+<ul class="list-unstyled">
+<li>All Basic Features</li>
+<li>Diet Guidance</li>
+<li>Group Classes</li>
+</ul>
+<button class="btn btn-light">
+Choose Plan
+</button>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card plan-card text-center">
+<div class="card-body">
+<h3>Premium</h3>
+<h2>₹2999</h2>
+<p>Per Month</p>
+<ul class="list-unstyled">
+<li>Personal Trainer</li>
+<li>Diet Plan</li>
+<li>24/7 Support</li>
+</ul>
+<button class="btn btn-outline-danger">
+Choose Plan
+</button>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5">
+<div class="container">
+<h2 class="section-title">Success Stories</h2>
+
+<div class="row">
+
+<div class="col-md-6">
+<div class="card p-3">
+<p>"PowerFit Gym changed my life. I lost 12 kg in 5 months!"</p>
+<h6>- Amit Verma</h6>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="card p-3">
+<p>"Amazing trainers and excellent facilities."</p>
+<h6>- Sneha Kapoor</h6>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Inquiry Form -->
+<section class="py-5 bg-light" id="inquiry">
+<div class="container">
+<h2 class="section-title">Online Inquiry</h2>
+
+<div class="row justify-content-center">
+<div class="col-md-8">
+
+<form class="card p-4 shadow">
+
+<div class="row">
+<div class="col-md-6 mb-3">
+<label>Name</label>
+<input type="text" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Phone</label>
+<input type="tel" class="form-control" required>
+</div>
+</div>
+
+<div class="mb-3">
+<label>Email</label>
+<input type="email" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Interested Program</label>
+<select class="form-select">
+<option>Weight Loss</option>
+<option>Muscle Building</option>
+<option>Cardio Fitness</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label>Message</label>
+<textarea class="form-control" rows="4"></textarea>
+</div>
+
+<button class="btn btn-danger">
+Submit Inquiry
+</button>
+
+</form>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- Contact -->
+<section class="py-5" id="contact">
+<div class="container text-center">
+
+<h2 class="section-title">Contact Us</h2>
+
+<p>
+<i class="fa-solid fa-location-dot text-danger"></i>
+123 Fitness Street, Nagpur
+</p>
+
+<p>
+<i class="fa-solid fa-phone text-danger"></i>
++91 98765 43210
+</p>
+
+<p>
+<i class="fa-solid fa-envelope text-danger"></i>
+info@powerfitgym.com
+</p>
+
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 text-center">
+<div class="container">
+<p class="mb-0">
+© 2026 PowerFit Gym | All Rights Reserved
+</p>
+
+<div class="mt-2">
+<i class="fab fa-facebook fa-lg mx-2"></i>
+<i class="fab fa-instagram fa-lg mx-2"></i>
+<i class="fab fa-youtube fa-lg mx-2"></i>
+<i class="fab fa-twitter fa-lg mx-2"></i>
+</div>
+</div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
