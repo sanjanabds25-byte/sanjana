@@ -1,0 +1,681 @@
+
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+    <meta charset="UTF-8"> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+    <title>Interactive Words Matching Game</title> 
+
+ 
+
+    <style> 
+
+        * { 
+
+            margin: 0; 
+
+            padding: 0; 
+
+            box-sizing: border-box; 
+
+            font-family: Arial, sans-serif; 
+
+        } 
+
+ 
+
+        body { 
+
+            min-height: 100vh; 
+
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+
+            display: flex; 
+
+            justify-content: center; 
+
+            align-items: center; 
+
+            padding: 20px; 
+
+        } 
+
+ 
+
+        .game-container { 
+
+            width: 100%; 
+
+            max-width: 1000px; 
+
+            background: white; 
+
+            border-radius: 25px; 
+
+            padding: 30px; 
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); 
+
+        } 
+
+ 
+
+        .header { 
+
+            text-align: center; 
+
+            margin-bottom: 25px; 
+
+        } 
+
+ 
+
+        .header h1 { 
+
+            color: #333; 
+
+            font-size: 32px; 
+
+            margin-bottom: 8px; 
+
+        } 
+
+ 
+
+        .header p { 
+
+            color: #777; 
+
+            font-size: 16px; 
+
+        } 
+
+ 
+
+        .score-board { 
+
+            display: flex; 
+
+            justify-content: space-between; 
+
+            align-items: center; 
+
+            background: #f5f6ff; 
+
+            padding: 15px 20px; 
+
+            border-radius: 15px; 
+
+            margin-bottom: 25px; 
+
+        } 
+
+ 
+
+        .score { 
+
+            font-size: 18px; 
+
+            font-weight: bold; 
+
+            color: #5b5bd6; 
+
+        } 
+
+ 
+
+        .new-game { 
+
+            border: none; 
+
+            background: #5b5bd6; 
+
+            color: white; 
+
+            padding: 10px 18px; 
+
+            border-radius: 10px; 
+
+            cursor: pointer; 
+
+            font-weight: bold; 
+
+        } 
+
+ 
+
+        .new-game:hover { 
+
+            background: #4545b8; 
+
+        } 
+
+ 
+
+        .game-board { 
+
+            display: grid; 
+
+            grid-template-columns: 1fr 1fr; 
+
+            gap: 25px; 
+
+        } 
+
+ 
+
+        .column h2 { 
+
+            text-align: center; 
+
+            margin-bottom: 15px; 
+
+            color: #333; 
+
+            font-size: 20px; 
+
+        } 
+
+ 
+
+        .card { 
+
+            background: #fafafa; 
+
+            border: 2px solid #e2e2e2; 
+
+            padding: 18px; 
+
+            border-radius: 14px; 
+
+            margin-bottom: 12px; 
+
+            cursor: pointer; 
+
+            transition: all 0.25s ease; 
+
+            min-height: 65px; 
+
+            display: flex; 
+
+            justify-content: center; 
+
+            align-items: center; 
+
+            text-align: center; 
+
+        } 
+
+ 
+
+        .card:hover { 
+
+            transform: translateY(-3px); 
+
+            border-color: #667eea; 
+
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2); 
+
+        } 
+
+ 
+
+        .card.selected { 
+
+            background: #e8e9ff; 
+
+            border-color: #5b5bd6; 
+
+            transform: scale(1.02); 
+
+        } 
+
+ 
+
+        .card.correct { 
+
+            background: #d9f8e4; 
+
+            border-color: #2ecc71; 
+
+            color: #15803d; 
+
+            pointer-events: none; 
+
+        } 
+
+ 
+
+        .card.wrong { 
+
+            background: #ffe0e0; 
+
+            border-color: #e74c3c; 
+
+            animation: shake 0.3s; 
+
+        } 
+
+ 
+
+        .card.matched { 
+
+            opacity: 0.5; 
+
+            pointer-events: none; 
+
+        } 
+
+ 
+
+        @keyframes shake { 
+
+            0% { transform: translateX(0); } 
+
+            25% { transform: translateX(-6px); } 
+
+            50% { transform: translateX(6px); } 
+
+            75% { transform: translateX(-6px); } 
+
+            100% { transform: translateX(0); } 
+
+        } 
+
+ 
+
+        .message { 
+
+            text-align: center; 
+
+            margin-top: 25px; 
+
+            font-size: 20px; 
+
+            font-weight: bold; 
+
+            min-height: 30px; 
+
+        } 
+
+ 
+
+        .success { 
+
+            color: #16a34a; 
+
+        } 
+
+ 
+
+        .error { 
+
+            color: #dc2626; 
+
+        } 
+
+ 
+
+        @media (max-width: 700px) { 
+
+            .game-container { 
+
+                padding: 20px; 
+
+            } 
+
+ 
+
+            .header h1 { 
+
+                font-size: 25px; 
+
+            } 
+
+ 
+
+            .game-board { 
+
+                grid-template-columns: 1fr; 
+
+                gap: 10px; 
+
+            } 
+
+ 
+
+            .score-board { 
+
+                flex-direction: column; 
+
+                gap: 12px; 
+
+            } 
+
+        } 
+
+    </style> 
+
+</head> 
+
+ 
+
+<body> 
+
+ 
+
+<div class="game-container"> 
+
+ 
+
+    <div class="header"> 
+
+        <h1>🧠 Word Matching Game</h1> 
+
+        <p>Match each vocabulary word with its correct definition.</p> 
+
+    </div> 
+
+ 
+
+    <div class="score-board"> 
+
+        <div class="score"> 
+
+            Score: <span id="score">0</span> 
+
+        </div> 
+
+ 
+
+        <div> 
+
+            Matches: 
+
+            <span id="matches">0</span>/5 
+
+        </div> 
+
+ 
+
+        <button class="new-game" onclick="newGame()"> 
+
+            🔄 New Game 
+
+        </button> 
+
+    </div> 
+
+ 
+
+    <div class="game-board"> 
+
+ 
+
+        <div class="column"> 
+
+            <h2>📚 Words</h2> 
+
+            <div id="words"></div> 
+
+        </div> 
+
+ 
+
+        <div class="column"> 
+
+            <h2>📖 Definitions</h2> 
+
+            <div id="definitions"></div> 
+
+        </div> 
+
+ 
+
+    </div> 
+
+ 
+
+    <div id="message" class="message"></div> 
+
+ 
+
+</div> 
+
+ 
+
+<script> 
+
+ 
+
+const vocabulary = [ 
+
+    { 
+
+        word: "Brave", 
+
+        definition: "Having courage and not being afraid" 
+
+    }, 
+
+    { 
+
+        word: "Ancient", 
+
+        definition: "Something that existed a very long time ago" 
+
+    }, 
+
+    { 
+
+        word: "Rapid", 
+
+        definition: "Happening very quickly" 
+
+    }, 
+
+    { 
+
+        word: "Generous", 
+
+        definition: "Willing to give or share with others" 
+
+    }, 
+
+    { 
+
+        word: "Curious", 
+
+        definition: "Wanting to know or learn something" 
+
+    } 
+
+]; 
+
+ 
+
+let selectedWord = null; 
+
+let selectedDefinition = null; 
+
+let score = 0; 
+
+let matches = 0; 
+
+ 
+
+const wordsContainer = document.getElementById("words"); 
+
+const definitionsContainer = document.getElementById("definitions"); 
+
+const scoreElement = document.getElementById("score"); 
+
+const matchesElement = document.getElementById("matches"); 
+
+const messageElement = document.getElementById("message"); 
+
+ 
+
+function shuffle(array) { 
+
+    return [...array].sort(() => Math.random() - 0.5); 
+
+} 
+
+ 
+
+function newGame() { 
+
+ 
+
+    selectedWord = null; 
+
+    selectedDefinition = null; 
+
+    score = 0; 
+
+    matches = 0; 
+
+ 
+
+    scoreElement.textContent = score; 
+
+    matchesElement.textContent = matches; 
+
+    messageElement.textContent = ""; 
+
+    messageElement.className = "message"; 
+
+ 
+
+    wordsContainer.innerHTML = ""; 
+
+    definitionsContainer.innerHTML = ""; 
+
+ 
+
+    const shuffledWords = shuffle(vocabulary); 
+
+    const shuffledDefinitions = shuffle(vocabulary); 
+    shuffledWords.forEach(item => { 
+
+        const card = document.createElement("div"); 
+        card.className = "card"; 
+
+        card.textContent = item.word; 
+
+        card.dataset.id = item.word; 
+        card.addEventListener("click", () => { 
+
+            selectWord(card); 
+
+        }); 
+        wordsContainer.appendChild(card); 
+
+    }); 
+    shuffledDefinitions.forEach(item => { 
+
+        const card = document.createElement("div"); 
+
+        card.className = "card"; 
+
+        card.textContent = item.definition; 
+
+        card.dataset.id = item.word; 
+        card.addEventListener("click", () => { 
+
+            selectDefinition(card); 
+
+        }); 
+        definitionsContainer.appendChild(card); 
+
+    }); 
+
+} 
+function selectWord(card) { 
+
+    if (card.classList.contains("matched")) return; 
+
+    document.querySelectorAll("#words .card") 
+
+        .forEach(c => c.classList.remove("selected")); 
+    card.classList.add("selected"); 
+    selectedWord = card; 
+    checkMatch(); 
+} 
+
+function selectDefinition(card) { 
+    if (card.classList.contains("matched")) return; 
+    document.querySelectorAll("#definitions .card") 
+
+        .forEach(c => c.classList.remove("selected")); 
+    card.classList.add("selected"); 
+    selectedDefinition = card; 
+    checkMatch(); 
+} 
+function checkMatch() { 
+
+    if (!selectedWord || !selectedDefinition) return; 
+
+    if (selectedWord.dataset.id === selectedDefinition.dataset.id) { 
+        selectedWord.classList.remove("selected"); 
+
+        selectedDefinition.classList.remove("selected"); 
+        selectedWord.classList.add("correct"); 
+
+        selectedDefinition.classList.add("correct"); 
+        selectedWord.classList.add("matched"); 
+
+        selectedDefinition.classList.add("matched"); 
+        score += 10; 
+
+        matches++; 
+        scoreElement.textContent = score; 
+
+        matchesElement.textContent = matches; 
+        messageElement.textContent = "✅ Correct Match!"; 
+
+        messageElement.className = "message success"; 
+        selectedWord = null; 
+
+        selectedDefinition = null; 
+        if (matches === vocabulary.length) { 
+            setTimeout(() => { 
+
+                messageElement.textContent = 
+
+                    `🎉 Congratulations! Final Score: ${score}`; 
+
+            }, 500); 
+
+        } 
+    } else { 
+        selectedWord.classList.add("wrong"); 
+
+        selectedDefinition.classList.add("wrong"); 
+        messageElement.textContent = "❌ Try Again!"; 
+
+        messageElement.className = "message error"; 
+        setTimeout(() => { 
+
+            selectedWord?.classList.remove("wrong", "selected"); 
+
+            selectedDefinition?.classList.remove("wrong", "selected"); 
+
+            selectedWord = null; 
+
+            selectedDefinition = null; 
+        }, 500); 
+
+    } 
+
+} 
+newGame(); 
+</script> 
+</body> 
+</html> 
