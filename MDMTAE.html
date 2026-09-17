@@ -1,0 +1,1198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Word Matching Game</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #667eea,
+                #764ba2
+            );
+
+            min-height: 100vh;
+
+            padding: 20px 15px;
+
+            color: #333;
+
+        }
+
+        .game-container {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 25px;
+
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #5b3bb5;
+
+            margin-bottom: 10px;
+
+        }
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 20px;
+
+        }
+
+        .levels {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin: 20px 0;
+
+        }
+
+        .level {
+
+            padding: 10px 20px;
+
+            background: #eee;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            color: #777;
+
+        }
+
+        .level.active {
+
+            background: #6c4bd9;
+
+            color: white;
+
+        }
+
+        .level.completed {
+
+            background: #42b883;
+
+            color: white;
+
+        }
+
+        #levelTitle {
+
+            text-align: center;
+
+            color: #5b3bb5;
+
+            margin: 20px 0;
+
+        }
+
+        .score-board {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin: 20px 0;
+
+        }
+
+        .score-box {
+
+            background: #f2efff;
+
+            padding: 15px 5px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+        }
+
+        .score-box h3 {
+
+            color: #5b3bb5;
+
+            font-size: 14px;
+
+        }
+
+        .score-box p {
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+            margin-top: 5px;
+
+        }
+
+        .progress {
+
+            height: 12px;
+
+            background: #eee;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 15px 0;
+
+        }
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: linear-gradient(
+                90deg,
+                #42b883,
+                #6c4bd9
+            );
+
+            transition: width 0.4s;
+
+        }
+
+        .game-area {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+            margin-top: 25px;
+
+        }
+
+        .column h2 {
+
+            text-align: center;
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .word-card {
+
+            width: 100%;
+
+            padding: 17px 8px;
+
+            margin-bottom: 12px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 13px;
+
+            background: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+        .word-card:hover {
+
+            background: #f0edff;
+
+            border-color: #7655d8;
+
+            transform: translateY(-3px);
+
+        }
+
+        .word-card.selected {
+
+            background: #ddd3ff;
+
+            border-color: #6c4bd9;
+
+        }
+
+        .word-card.matched {
+
+            background: #b9f6ca;
+
+            border-color: #2eaa60;
+
+            color: #176b39;
+
+            cursor: default;
+
+        }
+
+        .word-card.wrong {
+
+            background: #ffcdd2;
+
+            border-color: #e53935;
+
+        }
+
+        .message {
+
+            min-height: 28px;
+
+            text-align: center;
+
+            margin: 20px 0;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #5b3bb5;
+
+        }
+
+        .button-area {
+
+            text-align: center;
+
+        }
+
+        .main-btn {
+
+            background: #6c4bd9;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 25px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            margin: 5px;
+
+            transition: 0.3s;
+
+        }
+
+        .main-btn:hover {
+
+            background: #4b2fa3;
+
+            transform: scale(1.05);
+
+        }
+
+        .hidden {
+
+            display: none !important;
+
+        }
+
+        #finalScreen {
+
+            text-align: center;
+
+        }
+
+        .trophy {
+
+            font-size: 80px;
+
+            margin: 20px 0;
+
+        }
+
+        #finalScore {
+
+            font-size: 28px;
+
+            color: #5b3bb5;
+
+            margin: 20px;
+
+            font-weight: bold;
+
+        }
+
+        @media(max-width:600px) {
+
+            .game-container {
+
+                padding: 20px 12px;
+
+            }
+
+            .game-area {
+
+                gap: 10px;
+
+            }
+
+            .word-card {
+
+                font-size: 13px;
+
+                padding: 15px 4px;
+
+            }
+
+            .score-box p {
+
+                font-size: 18px;
+
+            }
+
+            .score-box h3 {
+
+                font-size: 12px;
+
+            }
+
+            .column h2 {
+
+                font-size: 16px;
+
+            }
+
+            h1 {
+
+                font-size: 25px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <!-- GAME SCREEN -->
+
+    <div id="gameScreen">
+
+        <h1>🌟 Word Matching Game 🌟</h1>
+
+        <p class="subtitle">
+
+            Match the English words with their correct meanings!
+
+        </p>
+
+        <!-- LEVELS -->
+
+        <div class="levels">
+
+            <div class="level active" id="level1">
+                Level 1
+            </div>
+
+            <div class="level" id="level2">
+                Level 2
+            </div>
+
+            <div class="level" id="level3">
+                Level 3
+            </div>
+
+        </div>
+
+        <h2 id="levelTitle">
+            Level 1 - Easy
+        </h2>
+
+        <!-- SCORE BOARD -->
+
+        <div class="score-board">
+
+            <div class="score-box">
+
+                <h3>🏆 Score</h3>
+
+                <p id="score">0</p>
+
+            </div>
+
+            <div class="score-box">
+
+                <h3>✅ Matched</h3>
+
+                <p id="matched">0 / 5</p>
+
+            </div>
+
+            <div class="score-box">
+
+                <h3>⏰ Time</h3>
+
+                <p id="timer">60</p>
+
+            </div>
+
+            <div class="score-box">
+
+                <h3>⭐ Level</h3>
+
+                <p id="levelNumber">1</p>
+
+            </div>
+
+        </div>
+
+        <!-- PROGRESS BAR -->
+
+        <div class="progress">
+
+            <div class="progress-bar" id="progressBar"></div>
+
+        </div>
+
+        <!-- GAME AREA -->
+
+        <div class="game-area">
+
+            <div class="column">
+
+                <h2>📚 Words</h2>
+
+                <div id="words"></div>
+
+            </div>
+
+            <div class="column">
+
+                <h2>💡 Meanings</h2>
+
+                <div id="meanings"></div>
+
+            </div>
+
+        </div>
+
+        <div class="message" id="message">
+
+            Select a word and its meaning!
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="button-area">
+
+            <button class="main-btn" onclick="restartLevel()">
+
+                🔄 Restart Level
+
+            </button>
+
+            <button
+                class="main-btn hidden"
+                id="nextBtn"
+                onclick="nextLevel()">
+
+                ➡️ Next Level
+
+            </button>
+
+            <button class="main-btn" onclick="goHome()">
+
+                🏠 Home
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL SCREEN -->
+
+    <div id="finalScreen" class="hidden">
+
+        <div class="trophy">🏆</div>
+
+        <h1>Congratulations!</h1>
+
+        <p class="subtitle">
+
+            You completed all 3 levels!
+
+        </p>
+
+        <div id="finalScore">
+
+            Your Final Score: 0
+
+        </div>
+
+        <p style="text-align:center; margin:20px;">
+
+            🎉 You are a Word Matching Champion! 🎉
+
+        </p>
+
+        <div class="button-area">
+
+            <button class="main-btn" onclick="startAgain()">
+
+                🔄 Play Again
+
+            </button>
+
+            <button class="main-btn" onclick="goHome()">
+
+                🏠 Home
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// =====================================
+// 20 WORDS
+// =====================================
+
+const allWords = [
+
+    // LEVEL 1 - EASY
+
+    { word: "Happy", meaning: "Feeling joy" },
+
+    { word: "Big", meaning: "Large in size" },
+
+    { word: "Fast", meaning: "Moving quickly" },
+
+    { word: "Brave", meaning: "Not afraid" },
+
+    { word: "Smart", meaning: "Very intelligent" },
+
+
+    // LEVEL 2 - MEDIUM
+
+    { word: "Tiny", meaning: "Very small" },
+
+    { word: "Begin", meaning: "To start" },
+
+    { word: "Silent", meaning: "Without sound" },
+
+    { word: "Ancient", meaning: "Very old" },
+
+    { word: "Honest", meaning: "Always truthful" },
+
+    { word: "Rapid", meaning: "Very fast" },
+
+    { word: "Assist", meaning: "To help" },
+
+
+    // LEVEL 3 - HARD
+
+    { word: "Generous", meaning: "Willing to give" },
+
+    { word: "Fragile", meaning: "Easily broken" },
+
+    { word: "Abundant", meaning: "More than enough" },
+
+    { word: "Accurate", meaning: "Correct and exact" },
+
+    { word: "Curious", meaning: "Wanting to know" },
+
+    { word: "Diligent", meaning: "Hardworking" },
+
+    { word: "Eloquent", meaning: "Fluent in speaking" },
+
+    { word: "Optimistic", meaning: "Hopeful about future" }
+
+];
+
+
+// =====================================
+// LEVEL SETTINGS
+// =====================================
+
+const levels = [
+
+    {
+        name: "Easy",
+        count: 5,
+        time: 60,
+        start: 0
+    },
+
+    {
+        name: "Medium",
+        count: 7,
+        time: 50,
+        start: 5
+    },
+
+    {
+        name: "Hard",
+        count: 8,
+        time: 45,
+        start: 12
+    }
+
+];
+
+
+// =====================================
+// VARIABLES
+// =====================================
+
+let currentLevel = 0;
+
+let currentWords = [];
+
+let selectedWord = null;
+
+let selectedMeaning = null;
+
+let score = 0;
+
+let matchedCount = 0;
+
+let timeLeft = 60;
+
+let timerInterval;
+
+let gameOver = false;
+
+
+// =====================================
+// ELEMENTS
+// =====================================
+
+const wordsContainer =
+    document.getElementById("words");
+
+const meaningsContainer =
+    document.getElementById("meanings");
+
+const message =
+    document.getElementById("message");
+
+
+// =====================================
+// LOAD LEVEL
+// =====================================
+
+function loadLevel() {
+
+    clearInterval(timerInterval);
+
+    selectedWord = null;
+
+    selectedMeaning = null;
+
+    matchedCount = 0;
+
+    gameOver = false;
+
+    let level = levels[currentLevel];
+
+    timeLeft = level.time;
+
+    currentWords = allWords.slice(
+
+        level.start,
+
+        level.start + level.count
+
+    );
+
+    document.getElementById("score").textContent =
+        score;
+
+    document.getElementById("matched").textContent =
+        "0 / " + currentWords.length;
+
+    document.getElementById("timer").textContent =
+        timeLeft;
+
+    document.getElementById("levelNumber").textContent =
+        currentLevel + 1;
+
+    document.getElementById("levelTitle").textContent =
+        "Level " + (currentLevel + 1) +
+        " - " + level.name;
+
+    document.getElementById("progressBar").style.width =
+        "0%";
+
+    message.textContent =
+        "Select a word and its meaning!";
+
+    document.getElementById("nextBtn")
+        .classList.add("hidden");
+
+    if(currentLevel === 2) {
+
+        document.getElementById("nextBtn")
+            .textContent = "🏆 Finish Game";
+
+    } else {
+
+        document.getElementById("nextBtn")
+            .textContent = "➡️ Next Level";
+
+    }
+
+    wordsContainer.innerHTML = "";
+
+    meaningsContainer.innerHTML = "";
+
+    let shuffledWords = [...currentWords].sort(
+
+        () => Math.random() - 0.5
+
+    );
+
+    let shuffledMeanings = [...currentWords].sort(
+
+        () => Math.random() - 0.5
+
+    );
+
+
+    // CREATE WORD CARDS
+
+    shuffledWords.forEach(pair => {
+
+        let button = document.createElement("button");
+
+        button.className = "word-card";
+
+        button.textContent = pair.word;
+
+        button.dataset.word = pair.word;
+
+        button.onclick = () => selectWord(button);
+
+        wordsContainer.appendChild(button);
+
+    });
+
+
+    // CREATE MEANING CARDS
+
+    shuffledMeanings.forEach(pair => {
+
+        let button = document.createElement("button");
+
+        button.className = "word-card";
+
+        button.textContent = pair.meaning;
+
+        button.dataset.word = pair.word;
+
+        button.onclick = () => selectMeaning(button);
+
+        meaningsContainer.appendChild(button);
+
+    });
+
+
+    updateLevelButtons();
+
+    timerInterval = setInterval(updateTimer, 1000);
+
+}
+
+
+// =====================================
+// SELECT WORD
+// =====================================
+
+function selectWord(button) {
+
+    if(
+        gameOver ||
+        button.classList.contains("matched")
+    ) {
+
+        return;
+
+    }
+
+    document.querySelectorAll("#words .word-card")
+
+        .forEach(card => {
+
+            card.classList.remove("selected");
+
+        });
+
+    button.classList.add("selected");
+
+    selectedWord = button;
+
+    checkMatch();
+
+}
+
+
+// =====================================
+// SELECT MEANING
+// =====================================
+
+function selectMeaning(button) {
+
+    if(
+        gameOver ||
+        button.classList.contains("matched")
+    ) {
+
+        return;
+
+    }
+
+    document.querySelectorAll("#meanings .word-card")
+
+        .forEach(card => {
+
+            card.classList.remove("selected");
+
+        });
+
+    button.classList.add("selected");
+
+    selectedMeaning = button;
+
+    checkMatch();
+
+}
+
+
+// =====================================
+// CHECK MATCH
+// =====================================
+
+function checkMatch() {
+
+    if(!selectedWord || !selectedMeaning) {
+
+        return;
+
+    }
+
+
+    // CORRECT MATCH
+
+    if(
+        selectedWord.dataset.word ===
+        selectedMeaning.dataset.word
+    ) {
+
+        selectedWord.classList.remove("selected");
+
+        selectedMeaning.classList.remove("selected");
+
+        selectedWord.classList.add("matched");
+
+        selectedMeaning.classList.add("matched");
+
+        selectedWord.disabled = true;
+
+        selectedMeaning.disabled = true;
+
+        score += 10;
+
+        matchedCount++;
+
+        document.getElementById("score").textContent =
+            score;
+
+        document.getElementById("matched").textContent =
+
+            matchedCount + " / " + currentWords.length;
+
+        document.getElementById("progressBar").style.width =
+
+            (matchedCount / currentWords.length * 100) + "%";
+
+        message.textContent =
+            "🎉 Correct Match! +10 Points";
+
+        selectedWord = null;
+
+        selectedMeaning = null;
+
+
+        // LEVEL COMPLETED
+
+        if(matchedCount === currentWords.length) {
+
+            gameOver = true;
+
+            clearInterval(timerInterval);
+
+            message.textContent =
+                "🏆 Level Complete!";
+
+            document.getElementById("nextBtn")
+                .classList.remove("hidden");
+
+        }
+
+    }
+
+
+    // WRONG MATCH
+
+    else {
+
+        score = Math.max(0, score - 2);
+
+        document.getElementById("score").textContent =
+            score;
+
+        message.textContent =
+            "❌ Wrong Match! -2 Points";
+
+        selectedWord.classList.add("wrong");
+
+        selectedMeaning.classList.add("wrong");
+
+        let wrongWord = selectedWord;
+
+        let wrongMeaning = selectedMeaning;
+
+        setTimeout(() => {
+
+            wrongWord.classList.remove(
+                "wrong",
+                "selected"
+            );
+
+            wrongMeaning.classList.remove(
+                "wrong",
+                "selected"
+            );
+
+        }, 500);
+
+        selectedWord = null;
+
+        selectedMeaning = null;
+
+    }
+
+}
+
+
+// =====================================
+// NEXT LEVEL
+// =====================================
+
+function nextLevel() {
+
+    if(currentLevel === 2) {
+
+        clearInterval(timerInterval);
+
+        document.getElementById("gameScreen")
+            .classList.add("hidden");
+
+        document.getElementById("finalScreen")
+            .classList.remove("hidden");
+
+        document.getElementById("finalScore").textContent =
+
+            "Your Final Score: " + score;
+
+        return;
+
+    }
+
+    currentLevel++;
+
+    loadLevel();
+
+}
+
+
+// =====================================
+// UPDATE LEVEL BUTTONS
+// =====================================
+
+function updateLevelButtons() {
+
+    for(let i = 1; i <= 3; i++) {
+
+        let levelButton =
+            document.getElementById("level" + i);
+
+        levelButton.classList.remove(
+            "active",
+            "completed"
+        );
+
+        if(i - 1 < currentLevel) {
+
+            levelButton.classList.add("completed");
+
+        }
+
+        else if(i - 1 === currentLevel) {
+
+            levelButton.classList.add("active");
+
+        }
+
+    }
+
+}
+
+
+// =====================================
+// RESTART LEVEL
+// =====================================
+
+function restartLevel() {
+
+    loadLevel();
+
+}
+
+
+// =====================================
+// PLAY AGAIN
+// =====================================
+
+function startAgain() {
+
+    currentLevel = 0;
+
+    score = 0;
+
+    document.getElementById("finalScreen")
+        .classList.add("hidden");
+
+    document.getElementById("gameScreen")
+        .classList.remove("hidden");
+
+    loadLevel();
+
+}
+
+
+// =====================================
+// HOME BUTTON
+// =====================================
+
+function goHome() {
+
+    clearInterval(timerInterval);
+
+    window.location.href = "index.html";
+
+}
+
+
+// =====================================
+// TIMER
+// =====================================
+
+function updateTimer() {
+
+    if(gameOver) return;
+
+    timeLeft--;
+
+    document.getElementById("timer").textContent =
+        timeLeft;
+
+    if(timeLeft <= 0) {
+
+        clearInterval(timerInterval);
+
+        gameOver = true;
+
+        message.textContent =
+            "⏰ Time's Up! Restart the level.";
+
+        document.querySelectorAll(".word-card")
+
+            .forEach(card => {
+
+                card.disabled = true;
+
+            });
+
+    }
+
+}
+
+
+// =====================================
+// START GAME AUTOMATICALLY
+// =====================================
+
+loadLevel();
+
+</script>
+
+</body>
+
+</html>
